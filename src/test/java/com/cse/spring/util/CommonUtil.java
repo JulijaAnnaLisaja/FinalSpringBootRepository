@@ -14,7 +14,7 @@ public class CommonUtil {
     public static final int EXPECTED_AGE_17 = 17;
     public static final boolean EXPECTED_IS_LEGAL_FALSE = false;
 
-    public static final PersonEntity person = new PersonEntity(EXPECTED_NAME_IVAN, EXPECTED_AGE_22, EXPECTED_IS_LEGAL_TRUE);
+    public static final PersonEntity person = new PersonEntity(EXPECTED_ID_1, EXPECTED_NAME_IVAN, EXPECTED_AGE_22, EXPECTED_IS_LEGAL_TRUE);
 
     public static PersonEntity getPerson_Ivan() {
 

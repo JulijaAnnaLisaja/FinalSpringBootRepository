@@ -1,7 +1,6 @@
 package com.cse.spring.service;
 
 import com.cse.spring.entity.PersonEntity;
-import com.cse.spring.exception.response.CustomisedValidationException;
 import com.cse.spring.exception.response.CustomizedNotFoundException;
 import com.cse.spring.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +73,6 @@ public class PersonServiceImpl implements PersonService {
      */
     @Override
     public PersonEntity createPerson(PersonEntity personEntity) {
-        if (personEntity.getAge() < 0) throw new CustomisedValidationException(constraintViolation.getMessage(), constraintViolations);
         personEntity.setLegal(setIsLegal(personEntity.getAge()));
         return personRepository.save(personEntity);
     }
@@ -95,7 +93,6 @@ public class PersonServiceImpl implements PersonService {
         PersonEntity newPersonEntity = new PersonEntity();;
         newPersonEntity.setName(personEntity.getName());
         newPersonEntity.setAge(personEntity.getAge());
-        if (personEntity.getAge() < 0) throw new CustomisedValidationException(constraintViolation.getMessage(), constraintViolations);
         newPersonEntity.setLegal(setIsLegal(personEntity.getAge()));
 
         return personRepository.save(newPersonEntity);
