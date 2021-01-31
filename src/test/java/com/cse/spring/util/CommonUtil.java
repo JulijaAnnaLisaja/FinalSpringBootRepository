@@ -10,7 +10,7 @@ public class CommonUtil {
     public static final boolean EXPECTED_IS_LEGAL_TRUE = true;
 
     public static final int EXPECTED_ID_2 = 2;
-    public static final String EXPECTED_NAME_OLEG = "Oleg";
+    public static final String EXPECTED_NAME_OLGA = "Olga";
     public static final int EXPECTED_AGE_17 = 17;
     public static final boolean EXPECTED_IS_LEGAL_FALSE = false;
 
@@ -28,7 +28,7 @@ public class CommonUtil {
     public static PersonEntity getPerson_Olga() {
 
         PersonEntity person = new PersonEntity();
-        person.setName(EXPECTED_NAME_OLEG);
+        person.setName(EXPECTED_NAME_OLGA);
         person.setLegal(EXPECTED_IS_LEGAL_FALSE);
         person.setAge(EXPECTED_AGE_17);
         return person;
