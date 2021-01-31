@@ -25,6 +25,11 @@ import static com.cse.spring.util.CommonUtil.getPerson_Olga;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Person Controller test class definition.
+ *
+ * @author julija.anna.lisaja@accenture.com
+ */
 @WebMvcTest(value = PersonController.class)
 public class PersonControllerTest {
 

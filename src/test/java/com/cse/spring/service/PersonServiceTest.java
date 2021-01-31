@@ -27,6 +27,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Person Service test class definition.
+ *
+ * @author julija.anna.lisaja@accenture.com
+ */
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 public class PersonServiceTest {
@@ -55,25 +60,24 @@ public class PersonServiceTest {
 
         Mockito.when(personRepository.findAllPersons()).thenReturn(personsList);
         assertThat(personService.getAllPersons()).isEqualTo(personsList);
-
     }
 
     @Test
-    public void testGetAllPersons_NoPersonFoud() {
+    public void testGetAllPersons_NoPersonFound() throws CustomizedNotFoundException {
 
         List<PersonEntity> personsList = new ArrayList<>();
 
         logger.debug("Person list: {}", personsList);
 
-        Mockito.when(personRepository.findAllPersons()).thenReturn(emptyList());
-        //assertThrows(NotExistException, "No person Found");
-
+        Mockito.when(personRepository.findAllPersons()).thenThrow(CustomizedNotFoundException.class);
+        assertThrows(CustomizedNotFoundException.class, () -> personService.getAllPersons());
     }
 
     @Test
     public void testGetOnePersonById() throws CustomizedNotFoundException {
 
         PersonEntity person = getPerson_Ivan();
+        person.setId(EXPECTED_ID_1);
 
         Optional<PersonEntity> optionalPerson = Optional.of(person);
 
@@ -81,13 +85,27 @@ public class PersonServiceTest {
 
         Mockito.when(personRepository.findPersonById(EXPECTED_ID_1)).thenReturn(optionalPerson);
         assertThat(personService.getPersonById(EXPECTED_ID_1)).isEqualTo(optionalPerson.get());
+    }
 
+    @Test
+    public void testGetOnePersonById_NotFound() {
+
+        PersonEntity person = getPerson_Ivan();
+        person.setId(EXPECTED_ID_1);
+
+        Optional<PersonEntity> optionalPerson = Optional.of(person);
+
+        logger.debug("Person id: {}", optionalPerson.get().getId());
+
+        Mockito.when(personRepository.findById(EXPECTED_ID_2)).thenThrow(CustomizedNotFoundException.class);
+        assertThrows(CustomizedNotFoundException.class, () -> personService.getPersonById(EXPECTED_ID_2));
     }
 
     @Test
     public void testCreatePerson() {
 
         PersonEntity person = getPerson_Ivan();
+        person.setId(EXPECTED_ID_1);
 
         logger.debug("Person : {}", person);
         logger.debug("Repository result: {}", personRepository.save(person));
@@ -100,6 +118,7 @@ public class PersonServiceTest {
     @Test
     public void testUpdateExistingPerson() throws CustomizedNotFoundException {
         PersonEntity person = getPerson_Ivan();
+        person.setId(EXPECTED_ID_1);
 
         Optional<PersonEntity> optionalPerson = Optional.of(person);
         Mockito.when(personRepository.findPersonById(EXPECTED_ID_1)).thenReturn(optionalPerson);
@@ -117,9 +136,11 @@ public class PersonServiceTest {
 
     @Test
     public void testDeletePerson() {
-        PersonEntity person = getPerson_Ivan();
 
-        Mockito.when(personRepository.findPersonById(1)).thenReturn(Optional.of(person));
+        PersonEntity person = getPerson_Ivan();
+        person.setId(EXPECTED_ID_1);
+
+        Mockito.when(personRepository.findPersonById(EXPECTED_ID_1)).thenReturn(Optional.of(person));
         Mockito.when(personRepository.existsById(person.getId())).thenReturn(false);
 
         assertFalse(personRepository.existsById(person.getId()));
