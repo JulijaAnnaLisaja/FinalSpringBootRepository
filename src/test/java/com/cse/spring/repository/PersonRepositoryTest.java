@@ -100,10 +100,10 @@ public class PersonRepositoryTest {
     public void testDeletePerson() {
 
         PersonEntity personIvan = getPerson_Ivan();
-        PersonEntity personOleg = getPerson_Olga();
+        PersonEntity personOlga = getPerson_Olga();
 
         PersonEntity personEntity = entityManager.persist(personIvan);
-        entityManager.persist(personOleg);
+        entityManager.persist(personOlga);
 
         personRepository.deleteById(personEntity.getId());
 
