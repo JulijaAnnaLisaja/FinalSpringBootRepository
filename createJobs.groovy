@@ -6,3 +6,18 @@ pipelineJob('pipelineJob') {
         }
     }
 }
+
+pipelineJob('spring boot CSE application') {
+    definition {
+        cpsScm {
+            scm{
+                git {
+                    remote {
+                        url 'https://github.com/JulijaAnnaLisaja/FinalSpringBootRepository.git'
+                    }
+                    branch 'master'
+                }
+            }
+        }
+    }
+}

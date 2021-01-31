@@ -37,7 +37,7 @@ public class PersonController {
      *
      * @return OK HTTP status.
      */
-    @GetMapping(value = "/get", consumes = "application/json", produces = "application/json")
+    @GetMapping(value = "/get")
     public ResponseEntity<List<PersonEntity>> getAllPersons() throws CustomizedNotFoundException {
         return new ResponseEntity<>(personService.getAllPersons(), HttpStatus.OK);
     }
@@ -48,7 +48,7 @@ public class PersonController {
      * @param id unique identifier of the Person.
      * @return FOUND HTTP status.
      */
-    @GetMapping(value = "/get/{id}", consumes = "application/json", produces = "application/json")
+    @GetMapping(value = "/get/{id}")
     @CrossOrigin
     public ResponseEntity<PersonEntity> getEmployee(@PathVariable("id") Integer id) throws CustomizedNotFoundException {
         return new ResponseEntity<>(personService.getPersonById(id), HttpStatus.FOUND);
@@ -60,7 +60,7 @@ public class PersonController {
      * @param person one Person record.
      * @return CREATED HTTP status.
      */
-    @PostMapping(value = "/add", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/add")
     public ResponseEntity<PersonEntity> savePerson(@RequestBody PersonEntity person) {
         personService.createPerson(person);
         return new ResponseEntity<>(person, HttpStatus.CREATED);
@@ -73,7 +73,7 @@ public class PersonController {
      * @param id unique identifier of the Person.
      * @return OK HTTP status.
      */
-    @PutMapping(value = "/update/{id}", consumes = "application/json", produces = "application/json")
+    @PutMapping(value = "/update/{id}")
     public ResponseEntity<PersonEntity> updateEmployee(@RequestBody PersonEntity person, @PathVariable("id") Integer id) throws CustomizedNotFoundException {
         return new ResponseEntity<>(personService.updatePersonById(person, id), HttpStatus.OK);
     }
@@ -83,7 +83,7 @@ public class PersonController {
      * @param id unique identifier of the Person.
      * @return NO_CONTENT HTTP status.
      */
-    @DeleteMapping(value = "/delete/{id}", consumes = "text/plain")
+    @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable("id") Integer id) throws CustomizedNotFoundException {
         personService.deletePersonById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
