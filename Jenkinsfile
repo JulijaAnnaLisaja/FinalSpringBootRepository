@@ -7,12 +7,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'gradlew assemble'
+                sh './gradlew assemble'
             }
         }
         stage('Test') {
             steps {
-                echo 'gradlew test'
+                echo './gradlew test'
             }
         }
     }
