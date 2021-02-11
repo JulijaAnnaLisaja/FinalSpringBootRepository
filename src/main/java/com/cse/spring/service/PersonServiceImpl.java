@@ -88,9 +88,10 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public PersonEntity updatePersonById(PersonEntity personEntity, Integer id) throws CustomizedNotFoundException {
 
-        if (getPersonById(id) != null) throw new CustomizedNotFoundException(idNotFoundExceptionMessage(id));
+        if (getPersonById(id) == null) throw new CustomizedNotFoundException(idNotFoundExceptionMessage(id));
 
-        PersonEntity newPersonEntity = new PersonEntity();;
+        PersonEntity newPersonEntity = getPersonById(id);
+
         newPersonEntity.setName(personEntity.getName());
         newPersonEntity.setAge(personEntity.getAge());
         newPersonEntity.setLegal(setIsLegal(personEntity.getAge()));
@@ -106,7 +107,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public void deletePersonById(Integer id) throws CustomizedNotFoundException {
 
-        if (getPersonById(id) != null) throw new CustomizedNotFoundException(idNotFoundExceptionMessage(id));
+        if (getPersonById(id) == null) throw new CustomizedNotFoundException(idNotFoundExceptionMessage(id));
 
         personRepository.deletePersonById(id);
     }
@@ -116,6 +117,6 @@ public class PersonServiceImpl implements PersonService {
     }
 
     private boolean setIsLegal(int age) {
-        return age < 18;
+        return age > 18;
     }
 }
